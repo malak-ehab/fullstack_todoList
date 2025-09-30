@@ -1,0 +1,29 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<div class="bubbles">
+<div class="bubbles">
+    <div class="bubble" style="left:5%;  animation-delay:0s;"></div>
+    <div class="bubble" style="left:15%; animation-delay:0.5s;"></div>
+    <div class="bubble" style="left:25%; animation-delay:1s;"></div>
+    <div class="bubble" style="left:35%; animation-delay:1.5s;"></div>
+    <div class="bubble" style="left:45%; animation-delay:0.2s;"></div>
+    <div class="bubble" style="left:55%; animation-delay:1s;"></div>
+    <div class="bubble" style="left:65%; animation-delay:0.8s;"></div>
+    <div class="bubble" style="left:75%; animation-delay:1.3s;"></div>
+    <div class="bubble" style="left:85%; animation-delay:0.6s;"></div>
+    <div class="bubble" style="left:95%; animation-delay:1.7s;"></div>
+</div>
+</div>
+<div class="header-bar">
+    <h1>Login</h1>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Login">
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+</div>
+{% endblock content %}

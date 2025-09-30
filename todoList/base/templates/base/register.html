@@ -1,0 +1,77 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<div class="bubbles">
+    <div class="bubble" style="left:5%;  animation-delay:0s;"></div>
+    <div class="bubble" style="left:15%; animation-delay:0.5s;"></div>
+    <div class="bubble" style="left:25%; animation-delay:1s;"></div>
+    <div class="bubble" style="left:35%; animation-delay:1.5s;"></div>
+    <div class="bubble" style="left:45%; animation-delay:0.2s;"></div>
+    <div class="bubble" style="left:55%; animation-delay:1s;"></div>
+    <div class="bubble" style="left:65%; animation-delay:0.8s;"></div>
+    <div class="bubble" style="left:75%; animation-delay:1.3s;"></div>
+    <div class="bubble" style="left:85%; animation-delay:0.6s;"></div>
+    <div class="bubble" style="left:95%; animation-delay:1.7s;"></div>
+</div>
+<div class="header-bar">
+    <h1>Register</h1>
+</div>
+
+<div class="card-body">
+    <form method="POST" id="registerForm">
+        {% csrf_token %}
+        <label>{{form.username.label}}</label>
+        {{form.username}}
+
+        <label for="id_password1">{{ form.password1.label }}</label>
+        <input type="password" name="password1" id="id_password1"
+            placeholder="Minimum 8 characters, mix letters & numbers" required>
+
+        <label for="id_password2">{{ form.password2.label }}</label>
+        <input type="password" name="password2" id="id_password2" placeholder="Repeat your password" required>
+
+        <input style="margin-top:10px;" class="button" type="submit" value="Register">
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+
+<div id="popup" style="
+    display:none;
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#D81B60;;
+    color:#fff;
+    padding:12px 20px;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    z-index:9999;
+    font-family:sans-serif;
+"></div>
+
+<script>
+    const form = document.getElementById("registerForm");
+    const password1 = document.getElementById("id_password1");
+    const password2 = document.getElementById("id_password2");
+    const popup = document.getElementById("popup");
+
+    function showPopup(message) {
+        popup.textContent = message;
+        popup.style.display = "block";
+        setTimeout(() => { popup.style.display = "none"; }, 3000);
+    }
+
+    form.addEventListener("submit", function (event) {
+        if (password1.value.length < 8) {
+            event.preventDefault();
+            showPopup("Password must be at least 8 characters long.");
+            return;
+        }
+
+        if (password1.value !== password2.value) {
+            event.preventDefault();
+            showPopup("Passwords do not match.");
+            return;
+        }
+    });
+</script>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<div class="bubbles">
+    <div class="bubble" style="left:5%;  animation-delay:0s;"></div>
+    <div class="bubble" style="left:15%; animation-delay:0.5s;"></div>
+    <div class="bubble" style="left:25%; animation-delay:1s;"></div>
+    <div class="bubble" style="left:35%; animation-delay:1.5s;"></div>
+    <div class="bubble" style="left:45%; animation-delay:0.2s;"></div>
+    <div class="bubble" style="left:55%; animation-delay:1s;"></div>
+    <div class="bubble" style="left:65%; animation-delay:0.8s;"></div>
+    <div class="bubble" style="left:75%; animation-delay:1.3s;"></div>
+    <div class="bubble" style="left:85%; animation-delay:0.6s;"></div>
+    <div class="bubble" style="left:95%; animation-delay:1.7s;"></div>
+</div>
+
+<div class="header-bar">
+    <div>
+        <h1>Hello {{request.user|title}}</h1>
+        <h3 style="margin:0">You have {{count}} incomplete task{{ count|pluralize:"s" }}</h3>
+    </div>
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" style="background: transparent; color: white; cursor: pointer;">
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+</div>
+
+<div id="search-add-wrapper">
+    <form method="GET" style="display: flex;">
+        <input type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
+        <input class="button" type="submit" value='Search' style="margin-left: 10px;">
+    </form>
+    {% if tasks|length > 0 %}
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>
+    {% endif %}
+</div>
+
+<div id="tasklist" class="task-items-wrapper">
+    {% for task in tasks %}
+    <div class="task-wrapper" data-position="{{task.pk}}">
+        <div class="task-title">
+            {% if task.complete %}
+            <div class="task-complete-icon"></div>
+            <del><a href="{% url 'task-update' task.id %}">{{task}}</a></del>
+            <span class="task-date">Creation date: {{ task.created|date:"M d, Y" }}</span>
+            {% else %}
+            <div class="task-incomplete-icon"></div>
+            <a href="{% url 'task-update' task.id %}">{{task}}</a>
+            <span class="task-date">Creation date: {{ task.created|date:"M d, Y" }}</span>
+            {% endif %}
+        </div>
+        <div class="task-controls">
+            <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+        </div>
+    </div>
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No new tasks are created.</h3>
+        <h3>Create a <a style="text-decoration: none; color: #D81B60; cursor: pointer;" href="{% url 'task-create' %}">New task</a> !
+        </h3>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content%}

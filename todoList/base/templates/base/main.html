@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <title>TO DO LIST</title>
+    <meta name="description" content="This is to do list">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fce4ec6e;
+            font-family: 'Nunito', sans-serif;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -120px;
+            border-radius: 50%;
+            animation: floatUp 16s infinite ease-in;
+            opacity: 0.7;
+            backdrop-filter: blur(2px);
+        }
+
+        .bubble:nth-child(1) {
+            width: 50px;
+            height: 50px;
+            background: rgba(100, 149, 237, 0.65);
+            animation-duration: 18s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 70px;
+            height: 70px;
+            background: rgba(233, 99, 128, 0.65);
+            animation-duration: 22s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            background: rgba(60, 179, 113, 0.65);
+            animation-duration: 14s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            background: rgba(148, 112, 196, 0.65);
+            animation-duration: 26s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.6);
+            animation-duration: 20s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 90px;
+            height: 90px;
+            background: rgba(70, 130, 180, 0.6);
+            animation-duration: 28s;
+        }
+
+        .bubble:nth-child(7) {
+            width: 45px;
+            height: 45px;
+            background: rgba(219, 112, 147, 0.65);
+            animation-duration: 16s;
+        }
+
+        .bubble:nth-child(8) {
+            width: 75px;
+            height: 75px;
+            background: rgba(72, 209, 204, 0.6);
+            animation-duration: 24s;
+        }
+
+        .bubble:nth-child(9) {
+            width: 55px;
+            height: 55px;
+            background: rgba(244, 164, 96, 0.65);
+            animation-duration: 18s;
+        }
+
+        .bubble:nth-child(10) {
+            width: 85px;
+            height: 85px;
+            background: rgba(205, 92, 92, 0.6);
+            animation-duration: 30s;
+        }
+
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.9);
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-120vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Raleway', sans-serif;
+        }
+
+        a {
+            color: #D81B60;
+        }
+
+        p {
+            color: #4b5156
+        }
+
+        a {
+            font-weight: 600;
+        }
+
+        .container {
+            width: 550px;
+            margin: 0 10px;
+            background-color: #fff;
+            -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+            box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+        }
+
+        input {
+            outline: none;
+            border: none;
+        }
+
+        .task-date {
+            font-size: 0.8rem;
+            color: #777;
+            margin-left: 8px;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(90deg, #F06292 0%, #F06292 43%, #D81B60 100%);
+        }
+
+        .header-bar a {
+            color: rgb(247, 247, 247);
+            text-decoration: none;
+        }
+
+        .task-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            border-top: 1px solid #dfe4ea;
+            overflow: hidden;
+        }
+
+        .task-title {
+            display: flex;
+            padding: 20px;
+        }
+
+        .task-title a {
+            text-decoration: none;
+            color: #4b5156;
+            margin-left: 10px;
+        }
+
+        .task-complete-icon {
+            height: 20px;
+            width: 20px;
+            background-color: rgb(105, 192, 105);
+            border-radius: 50%;
+        }
+
+        .task-incomplete-icon {
+            height: 20px;
+            width: 20px;
+            background-color: rgb(218, 218, 218);
+            border-radius: 50%;
+        }
+
+        .delete-link {
+            text-decoration: none;
+            font-weight: 900;
+            color: #D81B60;
+            font-size: 22px;
+            line-height: 0;
+            padding: 20px;
+        }
+
+        #add-link {
+            color: #D81B60;
+            text-decoration: none;
+            font-size: 42px;
+            text-shadow: 1px 1px #81413b;
+        }
+
+        #search-add-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @media screen and (max-width:320px) {
+            #search-add-wrapper {
+                padding: 10px;
+            }
+        }
+
+        input[type=text],
+        input[type=password],
+        textarea {
+            border: 1px solid #757575;
+            border-radius: 5px;
+            padding: 10px;
+            width: 90%;
+        }
+
+        label {
+            padding-top: 10px !important;
+            display: block;
+        }
+
+        label[for="id_complete"] {
+            display: inline-block;
+        }
+
+        input[type="checkbox"] {
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        ::placeholder {
+            font-weight: 300;
+            opacity: 0.5;
+        }
+
+        .button {
+            background-color: #FFF;
+            color: #D81B60;
+            padding: 10px 0px;
+            font-size: 14px;
+            border: 0;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+</body>
+
+</html>
